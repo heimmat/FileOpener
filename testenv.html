@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="jszip.min.js"></script>
+	<script src="fileOpener.js"></script>
+	<title>Test für fileOpener.js</title>
+	<style type="text/css">
+	textarea {
+		height: 150px;
+		width: 90%;
+	}
+	</style>
+</head>
+<body>
+	<h1>Test für fileOpener.js</h1>
+	<div id="filemgmt">
+		<label for="filepicker">Wählen Sie die zu analysierenden Dateien aus:</label>
+		<input id="filepicker" type="file" multiple="true"/>
+		<input id="analyze" type="button" value="Analysiere Dateien"/>
+	</div>
+	<hr>
+	<div id="output">
+	</div>
+	<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", documentInit);
+	function documentInit()
+	{
+		var filepicker = document.getElementById("filepicker");
+		var analyze = document.getElementById("analyze");
+		filepicker.addEventListener("change", filepickerChange);
+		analyze.addEventListener("click", function(e) {
+			FileOpener.getFilesFromList(filepicker.files).then(function(result) {
+				var simpleresult = result.simplify();
+				var output = document.getElementById("output");
+				output.innerHTML = "";
+				simpleresult.forEach(function(fileContent) {
+					var header = document.createElement("h2");
+					header.innerHTML = fileContent.name;
+					output.appendChild(header);
+					var textarea = document.createElement("textarea");
+					textarea.innerHTML = fileContent.content;
+					output.appendChild(textarea);
+				});	
+			});		
+		});
+		analyze.setAttribute("disabled", "disabled");
+	}
+
+	function filepickerChange(event)
+	{
+		//Enable analyze button when files are selected
+		if (event.target.files)
+		{
+			document.getElementById("analyze").removeAttribute("disabled");
+		}
+		else
+		{
+			document.getElementById("analyze").setAttribute("disabled", "disabled");
+		}
+	}
+	</script>
+</body>
