@@ -1,6 +1,6 @@
 # FileOpener
 ## Description
-**FileOpener** automates opening files and retrieving their contents. It employs @Stuk 's library [JSZip](https://github.com/Stuk/jszip) to open and retrieve files in zipped archives.
+**FileOpener** automates opening files and retrieving their contents. It employs [Stuk's library JSZip](https://github.com/Stuk/jszip) to open and retrieve files in zipped archives.
 
 ## Using FileOpener
 ### Adding FileOpener to my project
